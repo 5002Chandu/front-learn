@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #777573, #fcb69f);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .calculator {
+      background: #ddcdaf;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      max-width: 350px;
+      width: 100%;
+    }
+    .calculator h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    .input-group {
+      margin-bottom: 2rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.6rem;
+      color: #29572b;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 2px solid #a05959;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+    }
+    input[type="number"]:focus {
+      border-color: #4b4746;
+      outline: none;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    button {
+      flex: 1 1 45%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      background-color: #705247;
+      color: rgb(218, 220, 223);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #63475a;
+    }
+    .result, .steps {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #205555;
+      text-align: center;
+    }
+    .steps {
+      font-style: italic;
+      font-size: 1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator" role="form" aria-labelledby="calc-title">
+    <h2 id="calc-title"> Calculator</h2>
+    <div class="input-group">
+      <label for="num1">1st Number :</label>
+      <input type="number" id="num1" aria-required="true" />
+    </div>
+    <div class="input-group">
+      <label for="num2">2nd Number:</label>
+      <input type="number" id="num2" aria-required="true" />
+    </div>
+    <div class="buttons">
+      <button onclick="calculate('+')">➕ Add</button>
+      <button onclick="calculate('-')">➖ Subtract</button>
+      <button onclick="calculate('*')">✖️ Multiply</button>
+      <button onclick="calculate('/')">➗ Divide</button>
+      <button onclick="clearAll()">🧹 AC</button>
+    </div>
+    <div class="result" id="result" aria-live="polite"> Check the Results &#127881: —</div>
+    <div class="steps" id="steps"></div>
+  </div>
+
+  <script>
+    const num1 = document.getElementById('num1');
+    const num2 = document.getElementById('num2');
+    const resultEl = document.getElementById('result');
+    const stepsEl = document.getElementById('steps');
+
+    function calculate(operator) {
+      const val1 = parseFloat(num1.value);
+      const val2 = parseFloat(num2.value);
+      let result , steps;
+
+      if (isNaN(val1) || isNaN(val2)) {
+        result = "Please enter valid numbers.";
+        steps = "";
+      } else {
+        switch (operator) {
+          case '+':
+            result = val1 + val2;
+            steps = `Step: Add ${val1} and ${val2} → ${val1} + ${val2} = ${result}`;
+            break;
+          case '-':
+            result = val1 - val2;
+            steps = `Step: Subtract ${val2} from ${val1} → ${val1} - ${val2} = ${result}`;
+            break;
+          case '*':
+            result = val1 * val2;
+            steps = `Step: Multiply ${val1} by ${val2} → ${val1} × ${val2} = ${result}`;
+            break;
+          case '/':
+            if (val2 !== 0) {
+              result = val1 / val2;
+              steps = `Step: Divide ${val1} by ${val2} → ${val1} ÷ ${val2} = ${result}`;
+            } else {
+              result = "Cannot divide by zero";
+              steps = "";
+            }
+            break;
+        }
+      }
+      resultEl.textContent = `Result: ${result}`;
+      stepsEl.textContent = steps;
+    }
+
+    function clearAll() {
+      num1.value = '';
+      num2.value = '';
+      resultEl.textContent = 'Result: —';
+      stepsEl.textContent = '';
+      num1.focus();
+    }
+  </script>
+</body>
+</html>

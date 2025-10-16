@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Exact Change Calculator (INR)</title>
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+           text-align: center;
+           margin: 50px;
+       }
+       input, button {
+           padding: 10px;
+           margin: 5px;
+           font-size: 16px;
+       }
+       .result {
+           margin-top: 20px;
+           font-weight: bold;
+       }
+   </style>
+</head>
+<body>
+   <h1>Exact Change Calculator (INR)</h1>
+   <label for="amount">Enter Amount (in ₹): </label>
+   <input type="number" id="amount" placeholder="e.g., 786.50" step="0.01">
+   <button onclick="calculateChange()">Calculate Change</button>
+   <div class="result" id="result"></div>
+   <script>
+       function calculateChange() {
+           const amount = parseFloat(document.getElementById("amount").value);
+           if (isNaN(amount) || amount <= 0) {
+               document.getElementById("result").innerText = "Please enter a valid amount.";
+               return;
+           }
+           const denominations = [
+               { name: "₹2000 Notes", value: 2000 },
+               { name: "₹500 Notes", value: 500 },
+               { name: "₹200 Notes", value: 200 },
+               { name: "₹100 Notes", value: 100 },
+               { name: "₹50 Notes", value: 50 },
+               { name: "₹20 Notes", value: 20 },
+               { name: "₹10 Coins", value: 10 },
+               { name: "₹5 Coins", value: 5 },
+               { name: "₹2 Coins", value: 2 },
+               { name: "₹1 Coins", value: 1 },
+               { name: "50 Paise Coins", value: 0.5 }
+           ];
+           let remaining = amount;
+           let resultText = `Exact change for ₹${amount.toFixed(2)}:\n`;
+           denominations.forEach(denomination => {
+               const count = Math.floor(remaining / denomination.value);
+               if (count > 0) {
+                   resultText += `${count} ${denomination.name}\n`;
+                   remaining -= count * denomination.value;
+                   remaining = parseFloat(remaining.toFixed(2));
+               }
+           });
+           document.getElementById("result").innerText = resultText;
+       }
+   </script>
+</body>
+</html>

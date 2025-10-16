@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spam Email Classifier</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+      h3{
+      background-color: #52146b;
+      color: hotpink;
+    }
+    #checkBtn{
+      background-color: darkcyan;
+      color: #4a0964;
+      font-family: 'Times New Roman';
+    }
+    body {
+      background: #754b85;
+      border: darkgreen;
+      font-family: 'Poppins', sans-serif;
+    }
+    .card {
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 10px rgba(150, 83, 83, 0.15);
+      background-color: rgb(167, 185, 143);
+      color: rgb(139, 32, 98);
+    }
+    #result {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: rgb(91, 139, 79);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="card p-4 mx-auto" style="max-width: 600px;">
+      <h3 class="text-center mb-4 text-primary">📧 Spam Email Classifier</h3>
+      <div class="mb-3">
+        <label for="emailText" class="form-label">Enter Email Content:</label>
+        <textarea class="form-control" id="emailText" rows="6" placeholder="Type or paste your email here..."></textarea>
+      </div>
+      <button id="checkBtn" class="btn btn-primary w-100">Check Spam</button>
+      <div id="result" class="text-center mt-3"></div>
+
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("checkBtn").addEventListener("click", function() {
+      const text = document.getElementById("emailText").value.toLowerCase();
+      const spamKeywords = ["win", "free", "offer", "money", "lottery", "click here", "buy now", "urgent", "congratulations", "claim"];
+      let spamScore = 0;
+
+      spamKeywords.forEach(word => {
+        if (text.includes(word)) spamScore++;
+      });
+
+      const resultBox = document.getElementById("result");
+
+      if (text.trim() === "") {
+        resultBox.innerHTML = "⚠ Please enter some text!";
+        resultBox.style.background = "#fff3cd";
+        resultBox.style.color = "#856404";
+      } else if (spamScore > 2) {
+        resultBox.innerHTML = "🚫 This email looks like <b>SPAM!</b>";
+        resultBox.style.background = "#f8d7da";
+        resultBox.style.color = "#721c24";
+      } else {
+        resultBox.innerHTML = "✅ This email seems <b>Not Spam</b>.";
+        resultBox.style.background = "#d4edda";
+        resultBox.style.color = "#155724";
+      }
+    });
+  </script>
+</body>
+</html>
