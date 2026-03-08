@@ -7,6 +7,7 @@ This repository contains a **Front-End Web Development project** created to prac
 Front-end development is responsible for the **visual and interactive part of a website** that users see and interact with in their browsers. This project is designed to understand how web pages are structured, styled, and made interactive.
 
 The main goal of this project is to improve practical knowledge of front-end technologies and learn how to create responsive and visually appealing web pages.
+You can see more programs are done using HTML(HYPER TEXT MARKUP LANUAGE)
 
 ## 🛠 Technologies Used
 
